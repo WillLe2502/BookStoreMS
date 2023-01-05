@@ -3,6 +3,8 @@ package com.bookstore.admin.user;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -20,8 +22,6 @@ import com.bookstore.admin.FileUploadUtil;
 import com.bookstore.admin.entity.Role;
 import com.bookstore.admin.entity.User;
 import com.bookstore.admin.exception.UserNotFoundException;
-
-import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController {

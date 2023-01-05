@@ -3,6 +3,8 @@ package com.bookstore.admin.user;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,8 +16,6 @@ import org.springframework.stereotype.Service;
 import com.bookstore.admin.entity.Role;
 import com.bookstore.admin.entity.User;
 import com.bookstore.admin.exception.UserNotFoundException;
-
-import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
