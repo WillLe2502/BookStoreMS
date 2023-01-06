@@ -12,12 +12,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.bookstore.admin.entity.Role;
 import com.bookstore.admin.entity.User;
 
-public class ShopmeUserDetails implements UserDetails {
+public class LeLivreUserDetails implements UserDetails {
 
 	private User user;
 
 
-	public ShopmeUserDetails(User user) {
+	public LeLivreUserDetails(User user) {
 		this.user = user;
 	}
 
@@ -62,6 +62,18 @@ public class ShopmeUserDetails implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return user.isEnabled();
+	}
+	
+	public String getFullname() {
+		return this.user.getFirstName() + " " + this.user.getLastName();
+	}
+	
+	public void setFirstName(String firstName) {
+		this.user.setFirstName(firstName);
+	}
+
+	public void setLastName(String lastName) {
+		this.user.setLastName(lastName);
 	}
 
 }

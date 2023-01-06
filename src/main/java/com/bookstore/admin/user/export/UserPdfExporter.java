@@ -1,4 +1,4 @@
-package com.bookstore.admin.user;
+package com.bookstore.admin.user.export;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.bookstore.admin.AbstractExporter;
 import com.bookstore.admin.entity.User;
 import com.lowagie.text.Document;
 import com.lowagie.text.Font;
@@ -20,7 +21,7 @@ import com.lowagie.text.pdf.PdfWriter;
 public class UserPdfExporter extends AbstractExporter {
 
 	public void export(List<User> listUsers, HttpServletResponse response) throws IOException {
-		super.setResponseHeader(response, "application/pdf", ".pdf");
+		super.setResponseHeader(response, "application/pdf", ".pdf", "users_");
 
 		Document document = new Document(PageSize.A4);
 		PdfWriter.getInstance(document, response.getOutputStream());
