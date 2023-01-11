@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeLeaf.org/thymeLeaf-extras-springsecurit5">
+
+<head th:replace="fragments :: page_head('Publishers - LeLivre Online Store')" />
+
+<body>
+<div class="container-fluid">
+	<div th:replace="navigation :: menu"></div>
+	
+	<div>
+		<h2>Manage Publishers</h2>	
+
+		<a th:href="@{/publishers/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+		<a th:href="@{/publishers/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+
+	</div>
+	
+	<div th:replace="fragments :: search_form_and_message('/publishers/page/1')" />
+	
+	<div class="full-details">
+		<table class="table table-bordered table-striped table-hover table-responsive-xl">
+			<thead class="thead-dark">
+				<tr>
+					<th th:replace="fragments :: column_link('/publishers', 'id', 'Publisher ID', 'none')" />
+					<th>Logo</th>
+					<th th:replace="fragments :: column_link('/publishers', 'name', 'Publisher Name', 'none')" />
+					<th></th>
+				</tr>								
+			</thead>
+			<tbody>
+				<tr th:each="publisher : ${listPublishers}">
+					<td>[[${publisher.id}]]</td>
+					<td>
+						<img th:src="@{${publisher.logoPath}}" style="width: 100px" class="img-fluid"/>
+					</td>
+					<td>[[${publisher.name}]]</td>
+
+					<td>
+						<div th:replace="fragments :: edit('publisher', '/publishers/edit/' + ${publisher.id})" />
+						&nbsp; 
+						<div th:replace="fragments :: delete('publisher', ${publisher.id}, '/publishers/delete/' + ${publisher.id}, true)" />						
+					</td>					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="less-details">
+		<div th:each="publisher : ${listPublishers}" class="row m-1">
+			<div class="col-6">
+				<img th:src="@{${publisher.logoPath}}" style="width: 100px" class="img-fluid"/>			
+			</div>
+			<div class="col-6">
+				<div><b>[[${publisher.name}]]</b></div>
+				<div class="mt-2">
+					<div th:replace="fragments :: edit('publisher', '/publishers/edit/' + ${publisher.id})" />
+						&nbsp; 
+					<div th:replace="fragments :: delete('publisher', ${publisher.id}, '/publishers/delete/' + ${publisher.id}, true)" />
+				</div>
+			</div>
+			<div>&nbsp;</div>
+		</div>	
+	</div>
+	
+	<div th:replace="fragments :: pagination('/publishers', 'publishers')"></div>
+	
+	<div th:replace="modal_fragments :: confirm_modal" />
+	
+	<div th:replace="fragments :: footer" ></div>
+
+</div>
+
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+	moduleURL = "[[@{/publishers}]]";
+	
+	$(document).ready(function() {
+		$(".link-delete").on("click", function(e) {
+			e.preventDefault();
+			showDeleteConfirmModal($(this), 'publisher');
+		});
+	});
+</script>
+	
+</body>
+
+</html>

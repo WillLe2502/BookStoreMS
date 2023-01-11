@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeLeaf.org/thymeLeaf-extras-springsecurit5">
+
+<head th:replace="fragments :: page_head('Authors - LeLivre Online Store')" />
+
+<body>
+<div class="container-fluid">
+	<div th:replace="navigation :: menu"></div>
+	
+	<div>
+		<h2>Manage Authors</h2>	
+
+		<a th:href="@{/authors/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+		<a th:href="@{/authors/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+
+	</div>
+	
+	<div th:replace="fragments :: search_form_and_message('/authors/page/1')" />
+	
+	<div class="full-details">
+		<table class="table table-bordered table-striped table-hover table-responsive-xl">
+			<thead class="thead-dark">
+				<tr>
+					<th th:replace="fragments :: column_link('/authors', 'id', 'Author ID', 'none')" />
+					<th>Logo</th>
+					<th th:replace="fragments :: column_link('/authors', 'name', 'Author Name', 'none')" />
+					<th></th>
+				</tr>								
+			</thead>
+			<tbody>
+				<tr th:each="author : ${listAuthors}">
+					<td>[[${author.id}]]</td>
+					<td>
+						<img th:src="@{${author.logoPath}}" style="width: 100px" class="img-fluid"/>
+					</td>
+					<td>[[${author.name}]]</td>
+
+					<td>
+						<div th:replace="fragments :: edit('author', '/authors/edit/' + ${author.id})" />
+						&nbsp; 
+						<div th:replace="fragments :: delete('author', ${author.id}, '/authors/delete/' + ${author.id}, true)" />						
+					</td>					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="less-details">
+		<div th:each="author : ${listAuthors}" class="row m-1">
+			<div class="col-6">
+				<img th:src="@{${author.logoPath}}" style="width: 100px" class="img-fluid"/>			
+			</div>
+			<div class="col-6">
+				<div><b>[[${author.name}]]</b></div>
+				<div class="mt-2">
+					<div th:replace="fragments :: edit('author', '/authors/edit/' + ${author.id})" />
+						&nbsp; 
+					<div th:replace="fragments :: delete('author', ${author.id}, '/authors/delete/' + ${author.id}, true)" />						
+				</div>
+			</div>
+			<div>&nbsp;</div>
+		</div>	
+	</div>
+	
+	<div th:replace="fragments :: pagination('/authors', 'authors')"></div>
+	
+	<div th:replace="modal_fragments :: confirm_modal" />
+	
+	<div th:replace="fragments :: footer" ></div>
+
+</div>
+
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+	moduleURL = "[[@{/authors}]]";
+	
+	$(document).ready(function() {
+		$(".link-delete").on("click", function(e) {
+			e.preventDefault();
+			showDeleteConfirmModal($(this), 'author');
+		});
+	});
+</script>
+	
+</body>
+
+</html>
