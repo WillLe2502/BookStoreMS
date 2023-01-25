@@ -1,0 +1,175 @@
+<div class="modal-header">
+	<h4 class="modal-title">Book Details</h4>
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<div>
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+	  <li class="nav-item">
+	    <a class="nav-link active" data-toggle="tab" href="#overview" role="tab">Overview</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" data-toggle="tab" href="#bookDescription" role="tab">Description</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" data-toggle="tab" href="#images" role="tab">Images</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" data-toggle="tab" href="#details" role="tab">Details</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" data-toggle="tab" href="#shipping" role="tab">Shipping</a>
+	  </li>		  
+	</ul>
+	
+	<div class="tab-content">
+		<div class="tab-pane active p-3" id="overview" role="tabpanel">
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Book Name:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.name}" readonly />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">ISBN:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.isbn}" readonly />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Publisher:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.publisher.name}" readonly />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Author:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.author.name}" readonly />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Category:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.category.name}" readonly />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Enabled:</label>
+				<div class="col-sm-10">
+					<input type="checkbox" th:checked="${book.enabled}" onclick="return false;" />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">In-Stock:</label>
+				<div class="col-sm-10">
+					<input type="checkbox" th:checked="${book.inStock}" onclick="return false;" />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Cost:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.cost}" readonly />
+				</div>
+			</div>
+	
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Price:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.price}" readonly />
+				</div>
+			</div>
+	
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Discount:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.discountPercent}" readonly />
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Updated Time:</label>
+				<div class="col-sm-10">
+					<span th:text="${#dates.format(book.updatedTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+				</div>
+			</div>
+		
+		</div>
+		
+		<div class="tab-pane" id="bookDescription" role="tabpanel">
+			<div class="m-2">
+				<label>Description:</label>
+				<div th:utext="${book.description}" class="border p-2 m-2"></div>
+			</div>  
+	 	</div>
+	 	
+	 	<div class="tab-pane" id="images" role="tabpanel">
+			<div class="row">
+				<div class="col border m-3 p-2">
+					<div><label>Book Cover: [[${book.name}]]</label></div>
+					<div class="m-2">
+						<img alt="Main image preview" class="img-fluid"
+							th:src="@{${book.coverPath}}"/>
+					</div>
+				</div> 
+			</div>
+		</div>
+		
+		<div class="tab-pane p-3" id="details" role="tabpanel">
+			<div>
+				<table class="table table-striped table-bordered table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th width="40%">Name</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="detail: ${book.details}">
+							<td>[[${detail.name}]]</td>
+							<td>[[${detail.value}]]</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="tab-pane p-3" id="shipping" role="tabpanel">
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Length (inch):</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.length}" readonly/>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Width (inch):</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.width}" readonly/>
+				</div>
+			</div>		
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Height (inch):</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.height}" readonly/>
+				</div>
+			</div>		
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Weight (pounds):</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.weight}" readonly/>
+				</div>
+			</div>		
+		</div>
+	</div>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+</div>

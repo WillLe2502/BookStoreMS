@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.bookstore.admin.entity.Category;
+import com.bookstore.admin.entity.Publisher;
 import com.bookstore.admin.exception.CategoryNotFoundException;
 
 @Service
@@ -28,6 +29,10 @@ public class CategoryService {
 	
 	@Autowired
 	private CategoryRepository repo;
+	
+	public List<Category> listAll() {
+		return (List<Category>) repo.findAll();
+	}
 	
 	public List<Category> listByPage(
 			CategoryPageInfo pageInfo, int pageNum, 
@@ -107,6 +112,13 @@ public class CategoryService {
 	}
 	
 	public Category save(Category category) {
+		Category parent = category.getParent();
+		if (parent != null) {
+			String allParentIds = parent.getAllParentIDs() == null ? "-" : parent.getAllParentIDs();
+			allParentIds += String.valueOf(parent.getId()) + "-";
+			category.setAllParentIDs(allParentIds);
+		}
+		
 		return repo.save(category);
 	}
 	

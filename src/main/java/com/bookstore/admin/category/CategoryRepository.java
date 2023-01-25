@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.bookstore.admin.entity.Category;
+import com.bookstore.admin.entity.Publisher;
 
 public interface CategoryRepository extends PagingAndSortingRepository<Category, Integer> {
 
@@ -31,4 +32,7 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
 	
 	@Query("SELECT c FROM Category c WHERE c.name LIKE %?1%")
 	public Page<Category> search(String keyword, Pageable pageable);
+	
+	@Query("SELECT c FROM Category c ORDER BY c.name ASC")
+	public List<Category> findAll();
 }

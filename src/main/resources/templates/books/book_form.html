@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeLeaf.org/thymeLeaf-extras-springsecurit5">
+
+<head>
+	<head th:replace="fragments :: page_head(${pageTitle}, 'tag')" />
+	<link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
+	<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+</head>
+
+<body>
+<div class="container-fluid">
+	<div th:replace="navigation :: menu"></div>
+
+	<div>
+		<h2>Manage Books | [[${pageTitle}]]</h2>
+	</div>
+
+	<form th:action="@{/books/save}" method="post" 
+		enctype="multipart/form-data"
+		th:object="${book}"
+		onsubmit="return checkUnique(this)">
+		<input type="hidden" th:field="*{id}" />
+		<div>
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" data-toggle="tab" href="#overview" role="tab">Overview</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#bookDescription" role="tab">Description</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab"href="#images" role="tab">Images</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#details" role="tab">Details</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="tab" href="#shipping" role="tab">Shipping</a>
+				</li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane active p-3" id="overview" role="tabpanel">
+					<div th:replace="books/book_overview :: content"></div>
+				</div>
+				
+				<div class="tab-pane" id="bookDescription" role="tabpanel">
+				  	<div th:replace="books/book_description :: content"></div>
+				</div>
+				
+				<div class="tab-pane" id="images" role="tabpanel">
+					<div th:replace="books/book_cover :: content"></div>
+				</div>
+				
+				<div class="tab-pane" id="details" role="tabpanel">
+					<div th:replace="books/book_details :: content"></div>
+					<div>
+				  		<input type="button" class="btn btn-secondary" value="Add More Detail"
+				  			onclick="addNextDetailSection()" />
+				  	</div>
+				</div>
+				
+				<div class="tab-pane p-3" id="shipping" role="tabpanel">
+		  			<div th:replace="books/book_shipping :: content"></div>
+		  		</div>
+			</div>
+		</div>
+		
+		<div class="text-center">
+			<input type="submit" value="Save" class="btn btn-primary m-3" />
+			<input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel" />
+		</div>
+		
+	</form>
+
+	<div th:replace="modal_fragments :: modal_dialog"></div>
+
+	<div th:replace="fragments :: footer"></div>
+
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+	moduleURL = "[[@{/books}]]";
+	
+	$(document).ready(function() {
+		$("#description").richText();
+	})
+	
+	function checkUnique(form) {
+		bookId = $("#id").val();
+		bookName = $("#name").val();
+
+		csrfValue = $("input[name='_csrf']").val();
+
+		url = "[[@{/books/check_unique}]]";
+
+		params = {id: bookId, name: bookName, _csrf: csrfValue};
+
+		$.post(url, params, function(response) {
+			if (response == "OK") {
+				form.submit();
+			} else if (response == "Duplicate") {
+				showWarningModal("There is another book having the name " + bookName);	
+			} else {
+				showErrorModal("Unknown response from server");
+			}
+
+		}).fail(function() {
+			showErrorModal("Could not connect to the server");
+		});
+
+		return false;
+	}
+	
+</script>
+<script th:src="@{/js/common_form.js}"></script>
+<script th:src="@{/js/book_form_details.js}"></script>
+
+</body>
+
+</html>

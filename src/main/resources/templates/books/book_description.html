@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div class="m-2">
+		<label>Description:</label>
+		<div th:utext="${book.description}" class="border p-2 m-2"></div>
+	</div>
+	
+</div>		
+</body>
+</html>

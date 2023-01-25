@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeLeaf.org/thymeLeaf-extras-springsecurit5">
 
-<head th:replace="fragments :: page_head('Authors - LeLivre Online Store')" />
+<head th:replace="fragments :: page_head('Authors - LeLivre Online Store', 'none')" />
 
 <body>
 <div class="container-fluid">
@@ -23,7 +23,7 @@
 			<thead class="thead-dark">
 				<tr>
 					<th th:replace="fragments :: column_link('/authors', 'id', 'Author ID', 'none')" />
-					<th>Logo</th>
+					<th>Author Images</th>
 					<th th:replace="fragments :: column_link('/authors', 'name', 'Author Name', 'none')" />
 					<th></th>
 				</tr>								

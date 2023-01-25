@@ -13,7 +13,7 @@ import com.bookstore.admin.entity.Role;
 import com.bookstore.admin.entity.User;
 
 public class LeLivreUserDetails implements UserDetails {
-
+	private static final long serialVersionUID = 1L;
 	private User user;
 
 
@@ -74,6 +74,10 @@ public class LeLivreUserDetails implements UserDetails {
 
 	public void setLastName(String lastName) {
 		this.user.setLastName(lastName);
+	}
+	
+	public boolean hasRole(String roleName) {
+		return user.hasRole(roleName);
 	}
 
 }

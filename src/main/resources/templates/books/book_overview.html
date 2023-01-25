@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Book Name:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" th:field="*{name}" required minlength="3" maxlength="256"  />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">ISBN:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" th:field="*{isbn}" required minlength="3" maxlength="256"  />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Publisher:</label>
+		<div class="col-sm-10">
+			<select th:field="*{publisher}" class="form-control" required>
+				<th:block th:each="publisher : ${listPublishers}">
+					<option th:value="${publisher.id}">[[${publisher.name}]]</option>
+				</th:block>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Author:</label>
+		<div class="col-sm-10">
+			<select th:field="*{author}" class="form-control" required>
+				<th:block th:each="author : ${listAuthors}">
+					<option th:value="${author.id}">[[${author.name}]]</option>
+				</th:block>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Category:</label>
+		<div class="col-sm-10">
+			<select th:field="*{category}" class="form-control" required>
+				<th:block th:each="category : ${listCategories}">
+					<option th:value="${category.id}">[[${category.name}]]</option>
+				</th:block>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Enabled:</label>
+		<div class="col-sm-10">
+			<input type="checkbox" th:field="*{enabled}" />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">In-Stock:</label>
+		<div class="col-sm-10">
+			<input type="checkbox" th:field="*{inStock}" />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Cost:</label>
+		<div class="col-sm-10">
+			<input type="number" step="0.01" class="form-control" th:field="*{cost}"/>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Price:</label>
+		<div class="col-sm-10">
+			<input type="number" step="0.01" class="form-control" th:field="*{price}"/>
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Discount:</label>
+		<div class="col-sm-10">
+			<input type="number" step="0.01" class="form-control" th:field="*{discountPercent}"/>
+		</div>
+	</div>	
+	
+</div>		
+</body>
+</html>
