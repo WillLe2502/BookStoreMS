@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div class="form-group row">
+		<div class="col border m-3 p-2">
+			<div><label>Book Cover: [[${book.name}]]</label></div>
+			<div class="m-2">
+				<img alt="Main image preview" class="img-fluid"
+					th:src="@{${book.coverPath}}"/>
+			</div>
+		</div>
+	</div>
+	
+</div>		
+</body>
+</html>

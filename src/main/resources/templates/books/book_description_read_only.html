@@ -4,7 +4,7 @@
 <div th:fragment="content" th:remove="tag">
 	<div class="m-2">
 		<label>Description:</label>
-		<textarea class="form-control" th:field="*{description}" rows="10" required></textarea>
+		<div th:utext="${book.description}" class="border p-2 m-2"></div>
 	</div>
 	
 </div>		

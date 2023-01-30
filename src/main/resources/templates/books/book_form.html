@@ -46,23 +46,48 @@
 				</div>
 				
 				<div class="tab-pane" id="bookDescription" role="tabpanel">
-				  	<div th:replace="books/book_description :: content"></div>
+					<th:block sec:authorize="hasAuthority('Salesperson')">
+				  		<div th:replace="books/book_description_read_only :: content"></div>
+				  	</th:block>
+		
+				  	<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+				  		<div th:replace="books/book_description :: content"></div>
+				  	</th:block>
 				</div>
 				
 				<div class="tab-pane" id="images" role="tabpanel">
-					<div th:replace="books/book_cover :: content"></div>
+					<th:block sec:authorize="hasAuthority('Salesperson')">
+				  		<div th:replace="books/book_cover_read_only :: content"></div>
+				  	</th:block>
+		
+				  	<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+				  		<div th:replace="books/book_cover :: content"></div>
+				  	</th:block>
 				</div>
 				
 				<div class="tab-pane" id="details" role="tabpanel">
-					<div th:replace="books/book_details :: content"></div>
-					<div>
-				  		<input type="button" class="btn btn-secondary" value="Add More Detail"
-				  			onclick="addNextDetailSection()" />
-				  	</div>
+					<th:block sec:authorize="hasAuthority('Salesperson')">
+				  		<div th:replace="books/book_details_read_only :: content"></div>
+				  	</th:block>
+		
+				  	<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+						<div th:replace="books/book_details :: content"></div>
+						<div>
+					  		<input type="button" class="btn btn-secondary" value="Add More Detail"
+					  			onclick="addNextDetailSection()" />
+					  	</div>
+					</th:block>
 				</div>
 				
 				<div class="tab-pane p-3" id="shipping" role="tabpanel">
-		  			<div th:replace="books/book_shipping :: content"></div>
+					<th:block sec:authorize="hasAuthority('Salesperson')">
+				  		<div th:replace="books/book_shipping_read_only :: content"></div>
+				  	</th:block>
+		
+				  	<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+				  		<div th:replace="books/book_shipping :: content"></div>
+				  	</th:block>
+		  			
 		  		</div>
 			</div>
 		</div>
@@ -82,6 +107,7 @@
 <script th:src="@{/js/common_list.js}"></script>
 <script type="text/javascript">
 	moduleURL = "[[@{/books}]]";
+	checkUniqueUrl = "[[@{/books/check_unique}]]";
 	
 	$(document).ready(function() {
 		$("#description").richText();

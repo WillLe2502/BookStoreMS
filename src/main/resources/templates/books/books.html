@@ -10,9 +10,11 @@
 	
 	<div>
 		<h2>Manage Books</h2>	
-
-		<a th:href="@{/books/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
-		<a th:href="@{/books/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+		
+		<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+			<a th:href="@{/books/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+			<a th:href="@{/books/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
+		</th:block>
 	</div>
 	
 	<div>
@@ -57,7 +59,11 @@
 					<th th:replace="fragments :: column_link('/books', 'publisher', 'Publisher', 'none')"> </th>
 					<th th:replace="fragments :: column_link('/books', 'author', 'Author', 'none')"> </th>
 					<th th:replace="fragments :: column_link('/books', 'category', 'Category', 'none')"> </th>
-					<th>Enabled</th>
+					
+					<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+						<th>Enabled</th>
+					</th:block>
+					
 					<th></th>
 				</tr>								
 			</thead>
@@ -77,22 +83,60 @@
 					<td>[[${book.publisher.name}]]</td>
 					<td>[[${book.author.name}]]</td>
 					<td>[[${book.category.name}]]</td>
-					<td>
-						<div th:replace="fragments :: status(${book.enabled}, 'book', '/books/' + ${book.id})" />
-					</td>
+					
+					<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+						<td>
+							<div th:replace="fragments :: status(${book.enabled}, 'book', '/books/' + ${book.id})" />
+						</td>
+					</th:block>
+					
 					<td>
 						<a class="fas fa-file-alt fa-2x icon-green link-detail"
 							th:href="@{'/books/detail/' + ${book.id}}"
 							title="View details of this product"
 							></a>
-						&nbsp; 	
-						<div th:replace="fragments :: edit('book', '/books/edit/' + ${book.id})" />
-						&nbsp; 
-						<div th:replace="fragments :: delete('book', ${book.id}, '/books/delete/' + ${book.id}, true)" />						
+						<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
+							&nbsp; 	
+							<div th:replace="fragments :: edit('book', '/books/edit/' + ${book.id})" />
+						</th:block>
+						
+						<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
+							&nbsp; 
+							<div th:replace="fragments :: delete('book', ${book.id}, '/books/delete/' + ${book.id}, true)" />						
+						</th:block>
 					</td>					
 				</tr>
 			</tbody>
 		</table>
+	</div>
+	
+	<div class="less-details">
+		<div th:each="book : ${listBooks}" class="row m-1">
+			<div class="col-4">
+				<img th:src="@{${book.coverPath}}" style="width: 80px" class="img-fluid" />			
+			</div>
+			<div class="col-8">
+				<div>
+					<a class="link-detail" th:href="@{'/books/detail/' + ${book.id}}">[[${book.name}]]</a>				
+				</div>
+				<div class="mt-2">
+					<a class="fas fa-file-alt fa-2x icon-green link-detail"
+						th:href="@{'/books/detail/' + ${book.id}}"
+						></a>
+
+					<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
+					&nbsp; 	
+					<div th:replace="fragments :: edit('book', '/books/edit/' + ${book.id})" />
+					</th:block>
+
+					<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+					&nbsp; 
+					<div th:replace="fragments :: delete('book', ${book.id}, '/books/delete/' + ${book.id}, true)" />
+					</th:block>		
+				</div>
+			</div>
+			<div>&nbsp;</div>
+		</div>	
 	</div>
 	
 	<div th:replace="modal_fragments :: confirm_modal" />

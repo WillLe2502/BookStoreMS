@@ -29,6 +29,9 @@ public class Book {
 
 	@Column(unique = true, length = 256, nullable = false)
 	private String name;
+	
+	@Column(unique = true, length = 256, nullable = false)
+	private String alias;
 
 	@Column(unique = true, length = 256, nullable = false)
 	private String isbn;
@@ -88,6 +91,14 @@ public class Book {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 	public String getIsbn() {
@@ -261,5 +272,13 @@ public class Book {
 			return name.substring(0, 70).concat("...");
 		}
 		return name;
+	}
+	
+	@Transient
+	public float getDiscountPrice() {
+		if (discountPercent > 0) {
+			return price * ((100 - discountPercent) / 100);
+		}
+		return this.price;
 	}
 }

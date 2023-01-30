@@ -59,12 +59,12 @@ public class BookService {
 			book.setCreatedTime(new Date());
 		}
 
-//		if (book.getAlias() == null || book.getAlias().isEmpty()) {
-//			String defaultAlias = book.getName().replaceAll(" ", "-");
-//			book.setAlias(defaultAlias);
-//		} else {
-//			book.setAlias(book.getAlias().replaceAll(" ", "-"));
-//		}
+		if (book.getAlias() == null || book.getAlias().isEmpty()) {
+			String defaultAlias = book.getName().replaceAll(" ", "_");
+			book.setAlias(defaultAlias);
+		} else {
+			book.setAlias(book.getAlias().replaceAll(" ", "_"));
+		}
 
 		book.setUpdatedTime(new Date());
 
