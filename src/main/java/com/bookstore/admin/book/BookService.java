@@ -66,9 +66,11 @@ public class BookService {
 			book.setAlias(book.getAlias().replaceAll(" ", "_"));
 		}
 		
-		Book bookiInDb = repo.findById(book.getId()).get();
-		book.setCreatedTime(bookiInDb.getCreatedTime());
-
+		if (book.getId() != null) {
+			Book bookiInDb = repo.findById(book.getId()).get();
+			book.setCreatedTime(bookiInDb.getCreatedTime());
+		}
+		
 		book.setUpdatedTime(new Date());
 
 		return repo.save(book);

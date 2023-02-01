@@ -124,8 +124,6 @@ public class BookController {
 
 		} else {
 			setBookDetails(detailIDs, detailNames, detailValues, book);
-			Date createdTime = book.getCreatedTime();
-			book.setCreatedTime(createdTime);
 			bookService.save(book);
 		}
 		
