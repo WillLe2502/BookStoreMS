@@ -1,6 +1,7 @@
 package com.bookstore.admin.book;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -122,6 +123,8 @@ public class BookController {
 
 		} else {
 			setBookDetails(detailIDs, detailNames, detailValues, book);
+			Date createdTime = book.getCreatedTime();
+			book.setCreatedTime(createdTime);
 			bookService.save(book);
 		}
 		

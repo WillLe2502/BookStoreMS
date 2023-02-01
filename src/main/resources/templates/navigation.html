@@ -46,6 +46,10 @@
 					<a class="nav-link" th:href="@{/books}">Book</a>
 				</li>
 				</th:block>
+				
+				<li class="nav-item" sec:authorize="hasAuthority('Admin')">
+					<a class="nav-link" th:href="@{/settings}">Settings</a>
+				</li>
 			</ul>
 			
 			<ul class="navbar-nav ml-auto">
