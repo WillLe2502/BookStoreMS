@@ -1,4 +1,4 @@
-package com.bookstore.admin.setting.state;
+package com.bookstore.admin.entity;
 
 public class StateDTO {
 	private Integer id;

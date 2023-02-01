@@ -25,11 +25,15 @@ public class PublisherController {
 
 	@Autowired
 	private PublisherService service;
+	
+	private String defaultRedirectURL = "redirect:/publishers/page/1?sortField=id&sortDir=asc";
 
 	@GetMapping("/publishers")
 	public String listFirstPage(Model model) {
-		return listByPage(1, model, "id", "asc", null);
+		return defaultRedirectURL;
 	}
+	
+	
 	
 	@GetMapping("/publishers/page/{pageNum}")
 	public String listByPage(

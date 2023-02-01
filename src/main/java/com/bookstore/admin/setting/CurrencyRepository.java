@@ -1,4 +1,4 @@
-package com.bookstore.admin.currency;
+package com.bookstore.admin.setting;
 
 import java.util.List;
 

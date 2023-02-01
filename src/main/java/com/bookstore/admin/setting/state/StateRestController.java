@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bookstore.admin.entity.Country;
 import com.bookstore.admin.entity.State;
+import com.bookstore.admin.entity.StateDTO;
 
 @RestController
 public class StateRestController {

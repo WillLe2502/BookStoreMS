@@ -1,5 +1,7 @@
 package com.bookstore.admin.security;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -11,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 
 @Configuration
 @EnableWebSecurity
@@ -43,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
+			.antMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
 			.antMatchers("/categories/**", "/publishers/**", "/authors/**").hasAnyAuthority("Admin", "Editor")
 			.antMatchers("/books/new", "/books/delete/**").hasAnyAuthority("Admin", "Editor")
 
@@ -54,6 +57,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
 
 			.antMatchers("/books/**").hasAnyAuthority("Admin", "Editor")
+			
+			.antMatchers("/customers/**").hasAnyAuthority("Admin", "Salesperson")
+			
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()			
@@ -71,6 +77,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**", "/error");
+	}
+	
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+		resolvers.add(new PagingAndSortingArgumentResolver());
 	}
 
 

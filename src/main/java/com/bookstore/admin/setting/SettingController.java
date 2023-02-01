@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bookstore.admin.FileUploadUtil;
-import com.bookstore.admin.currency.CurrencyRepository;
 import com.bookstore.admin.entity.Currency;
 import com.bookstore.admin.entity.Setting;
 
@@ -88,5 +87,25 @@ public class SettingController {
 		}
 
 		service.saveAll(listSettings);
+	}
+	
+	@PostMapping("/settings/save_mail_server")
+	public String saveMailServerSetttings(HttpServletRequest request, RedirectAttributes ra) {
+		List<Setting> mailServerSettings = service.getMailServerSettings();
+		updateSettingValuesFromForm(request, mailServerSettings);
+
+		ra.addFlashAttribute("message", "Mail server settings have been saved");
+
+		return "redirect:/settings#mailServer";
+	}
+
+	@PostMapping("/settings/save_mail_templates")
+	public String saveMailTemplateSetttings(HttpServletRequest request, RedirectAttributes ra) {
+		List<Setting> mailTemplateSettings = service.getMailTemplateSettings();
+		updateSettingValuesFromForm(request, mailTemplateSettings);
+
+		ra.addFlashAttribute("message", "Mail template settings have been saved");
+
+		return "redirect:/settings#mailTemplates";
 	}
 }
