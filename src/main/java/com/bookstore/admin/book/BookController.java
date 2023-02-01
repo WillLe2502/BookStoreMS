@@ -50,7 +50,7 @@ public class BookController {
 			@Param("sortField") String sortField, 
 			@Param("sortDir") String sortDir,
 			@Param("keyword") String keyword,
-			@Param("categoryId") Integer categoryId
+			Integer categoryId
 			) {
 		Page<Book> page = bookService.listByPage(pageNum, sortField, sortDir, keyword, categoryId);
 		List<Book> listBooks = page.getContent();

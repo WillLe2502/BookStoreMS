@@ -12,7 +12,7 @@ public class PublisherRestController {
 	private PublisherService service;
 
 	@PostMapping("/publishers/check_unique")
-	public String checkUnique(@Param("id") Integer id, @Param("name") String name) {
+	public String checkUnique(Integer id, String name) {
 		return service.checkUnique(id, name);
 	}
 }
