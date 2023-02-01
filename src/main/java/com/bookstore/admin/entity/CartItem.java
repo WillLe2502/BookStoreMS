@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "cart_items")
@@ -64,6 +65,11 @@ public class CartItem {
 	public String toString() {
 		return "CartItem [id=" + id + ", customer=" + customer.getFullName() + ", product=" + book.getName() + ", quantity=" + quantity
 				+ "]";
+	}
+	
+	@Transient
+	public float getSubtotal() {
+		return book.getDiscountPrice() * quantity;
 	}
 
 
