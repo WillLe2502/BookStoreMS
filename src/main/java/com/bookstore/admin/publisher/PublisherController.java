@@ -33,8 +33,6 @@ public class PublisherController {
 		return defaultRedirectURL;
 	}
 	
-	
-	
 	@GetMapping("/publishers/page/{pageNum}")
 	public String listByPage(
 			@PathVariable(name = "pageNum") int pageNum, Model model,

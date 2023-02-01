@@ -72,7 +72,7 @@
 	
 	<div th:if="${keyword != null}" class="text-center">
 		<span>Search result does not show categories in hierarchical form</span>
-		<div th:replace="fragments :: pagination('/categories', 'categories')"></div>
+		<div th:replace="fragments :: pagination('categories')"></div>
 	</div>
 	
 	<th:block th:unless="${keyword != null}">

@@ -76,6 +76,13 @@ public class Book {
 	
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<BookDetail> details = new ArrayList<>();
+	
+	public Book(Integer id) {
+		this.id = id;
+	}
+
+	public Book() {
+	}
 
 	public Integer getId() {
 		return id;
