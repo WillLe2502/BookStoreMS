@@ -52,13 +52,13 @@
 		<table class="table table-bordered table-striped table-hover table-responsive-xl">
 			<thead class="thead-dark">
 				<tr>
-					<th th:replace="fragments :: column_link('/books', 'id', 'ID', 'none')"> </th>
+					<th th:replace="fragments :: column_link('id', 'ID', 'none')"> </th>
 					<th>Image</th>
-					<th th:replace="fragments :: column_link('/books', 'name', 'Book Name', 'none')"> </th>
+					<th th:replace="fragments :: column_link('name', 'Book Name', 'none')"> </th>
 					<th>ISBN</th>
-					<th th:replace="fragments :: column_link('/books', 'publisher', 'Publisher', 'none')"> </th>
-					<th th:replace="fragments :: column_link('/books', 'author', 'Author', 'none')"> </th>
-					<th th:replace="fragments :: column_link('/books', 'category', 'Category', 'none')"> </th>
+					<th th:replace="fragments :: column_link('publisher', 'Publisher', 'none')"> </th>
+					<th th:replace="fragments :: column_link('author', 'Author', 'none')"> </th>
+					<th th:replace="fragments :: column_link('category', 'Category', 'none')"> </th>
 					
 					<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
 						<th>Enabled</th>
@@ -148,7 +148,7 @@
 		</div>
 	</div>
 	
-	<div th:replace="fragments :: pagination('/books', 'books')"></div>
+	<div th:replace="fragments :: pagination('books')"></div>
 	
 	<div th:replace="fragments :: footer" ></div>
 

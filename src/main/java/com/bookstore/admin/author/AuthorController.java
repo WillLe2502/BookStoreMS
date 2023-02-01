@@ -59,6 +59,7 @@ public class AuthorController {
 		model.addAttribute("reverseSortDir", reverseSortDir);
 		model.addAttribute("keyword", keyword);		
 		model.addAttribute("listAuthors", listAuthors);
+		model.addAttribute("moduleURL", "/authors");
 
 		return "authors/authors";
 	}

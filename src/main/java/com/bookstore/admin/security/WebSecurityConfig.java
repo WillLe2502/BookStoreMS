@@ -82,9 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 //	@Override
-//	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-//		resolvers.add(new PagingAndSortingArgumentResolver());
-//	}
-
-
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+		resolvers.add(new PagingAndSortingArgumentResolver());
+	}
 }

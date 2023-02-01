@@ -32,6 +32,13 @@
 			</div>
 			
 			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Book Alias:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:value="${book.alias}" readonly />
+				</div>
+			</div>
+			
+			<div class="form-group row">
 				<label class="col-sm-2 col-form-label">ISBN:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" th:value="${book.isbn}" readonly />

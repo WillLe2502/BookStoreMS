@@ -62,6 +62,7 @@ public class PublisherController {
 		model.addAttribute("reverseSortDir", reverseSortDir);
 		model.addAttribute("keyword", keyword);		
 		model.addAttribute("listPublishers", listPublishers);
+		model.addAttribute("moduleURL", "/publishers");
 
 		return "publishers/publishers";
 	}

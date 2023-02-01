@@ -78,6 +78,7 @@ public class BookController {
 		model.addAttribute("keyword", keyword);		
 		model.addAttribute("listBooks", listBooks);
 		model.addAttribute("listCategories", listCategories);
+		model.addAttribute("moduleURL", "/books");
 		
 		return "books/books";		
 	}

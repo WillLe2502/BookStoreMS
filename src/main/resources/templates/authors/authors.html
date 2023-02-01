@@ -16,15 +16,15 @@
 
 	</div>
 	
-	<div th:replace="fragments :: search_form_and_message('/authors/page/1')" />
+	<div th:replace="fragments :: search_form_and_message" />
 	
 	<div class="full-details">
 		<table class="table table-bordered table-striped table-hover table-responsive-xl">
 			<thead class="thead-dark">
 				<tr>
-					<th th:replace="fragments :: column_link('/authors', 'id', 'Author ID', 'none')" />
+					<th th:replace="fragments :: column_link('id', 'Author ID', 'none')" />
 					<th>Author Images</th>
-					<th th:replace="fragments :: column_link('/authors', 'name', 'Author Name', 'none')" />
+					<th th:replace="fragments :: column_link('name', 'Author Name', 'none')" />
 					<th></th>
 				</tr>								
 			</thead>
@@ -63,7 +63,7 @@
 		</div>	
 	</div>
 	
-	<div th:replace="fragments :: pagination('/authors', 'authors')"></div>
+	<div th:replace="fragments :: pagination('authors')"></div>
 	
 	<div th:replace="modal_fragments :: confirm_modal" />
 	
