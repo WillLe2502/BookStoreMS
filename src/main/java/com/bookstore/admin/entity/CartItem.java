@@ -9,9 +9,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.bookstore.admin.entity.book.Book;
+
 @Entity
 @Table(name = "cart_items")
-public class CartItem {
+public class CartItem extends IdBasedEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -27,14 +29,6 @@ public class CartItem {
 	private int quantity;
 
 	public CartItem() {
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Customer getCustomer() {

@@ -13,9 +13,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
 import com.bookstore.admin.entity.Author;
-import com.bookstore.admin.entity.Book;
 import com.bookstore.admin.entity.Category;
 import com.bookstore.admin.entity.Publisher;
+import com.bookstore.admin.entity.book.Book;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)

@@ -9,10 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "currencies")
-public class Currency {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+public class Currency extends IdBasedEntity{
 
 	@Column(nullable = false, length = 64)
 	private String name;
@@ -32,14 +29,6 @@ public class Currency {
 		this.name = name;
 		this.symbol = symbol;
 		this.code = code;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getName() {

@@ -1,4 +1,4 @@
-package com.bookstore.admin.entity;
+package com.bookstore.admin.entity.settting;
 
 import java.util.List;
 

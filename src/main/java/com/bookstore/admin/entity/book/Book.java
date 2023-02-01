@@ -1,4 +1,4 @@
-package com.bookstore.admin.entity;
+package com.bookstore.admin.entity.book;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,13 +16,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.bookstore.admin.entity.Author;
+import com.bookstore.admin.entity.Category;
+import com.bookstore.admin.entity.IdBasedEntity;
+import com.bookstore.admin.entity.Publisher;
+
 @Entity
 @Table(name = "books")
-public class Book {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+public class Book extends IdBasedEntity {
 	
 	@Column(nullable = false, length = 128)
 	private String cover;
@@ -82,14 +83,6 @@ public class Book {
 	}
 
 	public Book() {
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getName() {

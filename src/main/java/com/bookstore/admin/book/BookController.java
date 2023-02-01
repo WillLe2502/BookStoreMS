@@ -23,9 +23,9 @@ import com.bookstore.admin.FileUploadUtil;
 import com.bookstore.admin.author.AuthorService;
 import com.bookstore.admin.category.CategoryService;
 import com.bookstore.admin.entity.Author;
-import com.bookstore.admin.entity.Book;
 import com.bookstore.admin.entity.Category;
 import com.bookstore.admin.entity.Publisher;
+import com.bookstore.admin.entity.book.Book;
 import com.bookstore.admin.exception.BookNotFoundException;
 import com.bookstore.admin.publisher.PublisherService;
 

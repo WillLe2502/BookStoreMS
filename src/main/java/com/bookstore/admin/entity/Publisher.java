@@ -10,11 +10,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "publishers")
-public class Publisher {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+public class Publisher extends IdBasedEntity{
 
 	@Column(nullable = false, length = 45, unique = true)
 	private String name;
@@ -34,14 +30,6 @@ public class Publisher {
 	public Publisher(Integer id, String name) {
 		this.id = id;
 		this.name = name;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getName() {

@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bookstore.admin.FileUploadUtil;
 import com.bookstore.admin.entity.Currency;
-import com.bookstore.admin.entity.Setting;
+import com.bookstore.admin.entity.settting.Setting;
 
 @Controller
 public class SettingController {

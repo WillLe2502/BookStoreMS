@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.bookstore.admin.entity.Book;
+import com.bookstore.admin.entity.book.Book;
 import com.bookstore.admin.exception.BookNotFoundException;
 
 @Service

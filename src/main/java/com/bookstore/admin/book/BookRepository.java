@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.bookstore.admin.entity.Book;
+import com.bookstore.admin.entity.book.Book;
 
 public interface BookRepository extends PagingAndSortingRepository<Book, Integer> {
 	public Book findByName(String name);
