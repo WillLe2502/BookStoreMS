@@ -35,6 +35,9 @@
 		  	</li>
 		  	<li class="nav-item">
 		    	<a class="nav-link" data-toggle="tab" href="#mailTemplates" role="tab">Mail Templates</a>
+		  	</li>
+		  	<li class="nav-item">
+		    	<a class="nav-link" data-toggle="tab" href="#payment" role="tab">Payment</a>
 		  	</li>		  
 		</ul>
 
@@ -54,6 +57,9 @@
 		  	<div class="tab-pane p-3" id="mailTemplates" role="tabpanel">
 				<div th:replace="settings/mail_templates/mail_templates :: content"></div>
 		  	</div>
+		  	 <div class="tab-pane p-3" id="payment" role="tabpanel">
+		  	 	<div th:replace="settings/payment :: content"></div>
+		  	 </div>
 		 </div>
 	</div>
 	
@@ -81,6 +87,7 @@
 		});
 		
 		$("#customerVerificationContent").richText();
+		$("#orderConfirmationContent").richText({height: 400});
 	});
 </script>
 <script th:src="@{/js/common_form.js}"></script>
