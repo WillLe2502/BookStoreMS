@@ -16,19 +16,19 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "customers")
-public class Customer extends AbstractAddressWithCountry{
-
+public class Customer extends AbstractAddressWithCountry {
+	
 	@Column(nullable = false, unique = true, length = 45)
 	private String email;
 
 	@Column(nullable = false, length = 64)
 	private String password;
-
+	
 	@Column(name = "verification_code", length = 64)
 	private String verificationCode;	
-
+	
 	private boolean enabled;
-
+	
 	@Column(name = "created_time")
 	private Date createdTime;
 	
@@ -41,7 +41,7 @@ public class Customer extends AbstractAddressWithCountry{
 
 	public Customer() {
 	}
-	
+
 	public Customer(Integer id) {
 		this.id = id;
 	}
@@ -97,7 +97,7 @@ public class Customer extends AbstractAddressWithCountry{
 	public void setAuthenticationType(AuthenticationType authenticationType) {
 		this.authenticationType = authenticationType;
 	}
-	
+
 	public String getResetPasswordToken() {
 		return resetPasswordToken;
 	}
@@ -105,4 +105,5 @@ public class Customer extends AbstractAddressWithCountry{
 	public void setResetPasswordToken(String resetPasswordToken) {
 		this.resetPasswordToken = resetPasswordToken;
 	}
+
 }

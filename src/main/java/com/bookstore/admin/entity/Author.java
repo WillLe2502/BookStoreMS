@@ -18,6 +18,9 @@ public class Author extends IdBasedEntity{
 	@Column(nullable = false, length = 128)
 	private String logo;
 	
+	@Column(length = 4096, nullable = false, name = "description")
+	private String description;
+	
 	public Author() {
 
 	}
@@ -45,6 +48,14 @@ public class Author extends IdBasedEntity{
 
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	@Override

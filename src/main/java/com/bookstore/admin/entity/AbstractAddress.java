@@ -15,7 +15,7 @@ public abstract class AbstractAddress extends IdBasedEntity {
 	@Column(name = "phone_number", nullable = false, length = 15)
 	protected String phoneNumber;
 
-	@Column(name = "address_line_1", nullable = false, length = 64)
+	@Column(name = "address_line_1", nullable = true, length = 64)
 	protected String addressLine1;
 
 	@Column(name = "address_line_2", length = 64)

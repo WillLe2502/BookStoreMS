@@ -19,6 +19,6 @@ public interface AuthorRepository extends PagingAndSortingRepository<Author, Int
 	@Query("SELECT b FROM Author b WHERE b.name LIKE %?1%")
 	public Page<Author> findAll(String keyword, Pageable pageable);
 	
-	@Query("SELECT NEW Author(a.id, a.name) FROM Author a ORDER BY a.name ASC")
+	@Query("SELECT a FROM Author a ORDER BY a.name ASC")
 	public List<Author> findAll();
 }
