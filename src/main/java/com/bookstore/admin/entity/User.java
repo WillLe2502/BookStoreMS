@@ -16,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.bookstore.admin.Constants;
+
 @Entity
 @Table(name = "users")
 public class User extends IdBasedEntity{
@@ -121,7 +123,7 @@ public class User extends IdBasedEntity{
 	public String getPhotosImagePath() {
 		if (id == null || photos == null) return "/img/default-user.png";
 
-		return "/user-photos/" + this.id + "/" + this.photos;
+		return Constants.S3_BASE_URI + "/user-photos/" + this.id + "/" + this.photos;
 	}
 	
 	@Transient
