@@ -1,5 +1,6 @@
 package com.bookstore.admin.order;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +10,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.bookstore.admin.entity.Country;
 import com.bookstore.admin.entity.order.Order;
 import com.bookstore.admin.exception.OrderNotFoundException;
+import com.bookstore.admin.setting.country.CountryRepository;
 
 @Service
 public class OrderService {
 
 	protected static final int ORDERS_PER_PAGE = 10;
 
-	@Autowired private OrderRepository repo;
+	@Autowired private OrderRepository orderRepo;
+	@Autowired private CountryRepository countryRepo;
 
 	public Page<Order> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
 		Sort sort = Sort.by(sortField);
@@ -36,26 +40,38 @@ public class OrderService {
 		Page<Order> page = null;
 
 		if (keyword != null) {
-			return page = repo.findAll(keyword, pageable);
+			return page = orderRepo.findAll(keyword, pageable);
 		} else {
-			return page = repo.findAll(pageable);
+			return page = orderRepo.findAll(pageable);
 		}		
 	}
 	
 	public Order get(Integer id) throws OrderNotFoundException {
 		try {
-			return repo.findById(id).get();
+			return orderRepo.findById(id).get();
 		} catch (NoSuchElementException ex) {
 			throw new OrderNotFoundException("Could not find any orders with ID " + id);
 		}
 	}
 	
 	public void delete(Integer id) throws OrderNotFoundException {
-		Long count = repo.countById(id);
+		Long count = orderRepo.countById(id);
 		if (count == null || count == 0) {
 			throw new OrderNotFoundException("Could not find any orders with ID " + id); 
 		}
 
-		repo.deleteById(id);
+		orderRepo.deleteById(id);
 	}
+	
+	public List<Country> listAllCountries() {
+		return countryRepo.findAllByOrderByNameAsc();
+	}
+	
+	public void save(Order orderInForm) {
+		Order orderInDB = orderRepo.findById(orderInForm.getId()).get();
+		orderInForm.setOrderTime(orderInDB.getOrderTime());
+		orderInForm.setCustomer(orderInDB.getCustomer());
+
+		orderRepo.save(orderInForm);
+	}	
 }

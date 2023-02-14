@@ -12,21 +12,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.bookstore.admin.book.BookRepository;
 import com.bookstore.admin.entity.Country;
-import com.bookstore.admin.entity.Publisher;
 import com.bookstore.admin.entity.ShippingRate;
+import com.bookstore.admin.entity.book.Book;
 import com.bookstore.admin.exception.ShippingRateAlreadyExistsException;
 import com.bookstore.admin.exception.ShippingRateNotFoundException;
-import com.bookstore.admin.paging.PagingAndSortingHelper;
 import com.bookstore.admin.setting.country.CountryRepository;
 
 @Service
 @Transactional
 public class ShippingRateService {
 	public static final int RATES_PER_PAGE = 10;
+	private static final int DIM_DIVISOR = 139;	
 
 	@Autowired private ShippingRateRepository shipRepo;
 	@Autowired private CountryRepository countryRepo;
+	@Autowired private BookRepository bookRepo;
 
 	public Page<ShippingRate> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
 		Sort sort = Sort.by(sortField);
@@ -84,4 +86,21 @@ public class ShippingRateService {
 		}
 		shipRepo.deleteById(id);
 	}	
+	
+	public float calculateShippingCost(Integer productId, Integer countryId, String state) 
+			throws ShippingRateNotFoundException {
+		ShippingRate shippingRate = shipRepo.findByCountryAndState(countryId, state);
+
+		if (shippingRate == null) {
+			throw new ShippingRateNotFoundException("No shipping rate found for the given "
+					+ "destination. You have to enter shipping cost manually.");
+		}
+
+		Book product = bookRepo.findById(productId).get();
+
+		float dimWeight = (product.getLength()/1000 * product.getWidth()/1000 * product.getHeight()) / DIM_DIVISOR;
+		float finalWeight = product.getWeight()/1000 > dimWeight ? product.getWeight()/1000 : dimWeight;
+
+		return finalWeight * shippingRate.getRate();
+	}
 }

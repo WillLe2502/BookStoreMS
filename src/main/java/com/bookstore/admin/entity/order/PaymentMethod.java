@@ -1,5 +1,5 @@
 package com.bookstore.admin.entity.order;
 
 public enum PaymentMethod {
-	COD, CREDIT_CARD
+	COD, CREDIT_CARD, PAYPAL
 }

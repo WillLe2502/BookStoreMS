@@ -4,11 +4,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.bookstore.admin.entity.book.Book;
+import com.bookstore.admin.paging.SearchRepository;
 
-public interface BookRepository extends PagingAndSortingRepository<Book, Integer> {
+public interface BookRepository extends SearchRepository<Book, Integer> {
 	public Book findByName(String name);
 	
 	@Query("UPDATE Book b SET b.enabled = ?2 WHERE b.id = ?1")
@@ -38,5 +38,8 @@ public interface BookRepository extends PagingAndSortingRepository<Book, Integer
 			+ "OR b.category.name LIKE %?3%)")			
 	public Page<Book> searchInCategory(Integer categoryId, String categoryIdMatch, 
 			String keyword, Pageable pageable);
+	
+	@Query("SELECT b FROM Book b WHERE b.name LIKE %?1%")
+	public Page<Book> searchBooksByName(String keyword, Pageable pageable);
 
 }

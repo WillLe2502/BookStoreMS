@@ -2,14 +2,14 @@ package com.bookstore.admin.user;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.bookstore.admin.entity.User;
+import com.bookstore.admin.paging.SearchRepository;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends SearchRepository<User, Integer> {
 	
 	@Query("SELECT u FROM User u WHERE u.email = :email")
 	public User getUserByEmail(@Param("email") String email);

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.bookstore.admin.entity.Author;
 import com.bookstore.admin.exception.AuthorNotFoundException;
+import com.bookstore.admin.paging.PagingAndSortingHelper;
 
 @Service
 public class AuthorService {
@@ -24,18 +25,8 @@ public class AuthorService {
 		return (List<Author>) repo.findAll();
 	}
 	
-	public Page<Author> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
-		Sort sort = Sort.by(sortField);
-
-		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-
-		Pageable pageable = PageRequest.of(pageNum - 1, AUTHORS_PER_PAGE, sort);
-
-		if (keyword != null) {
-			return repo.findAll(keyword, pageable);
-		}
-
-		return repo.findAll(pageable);		
+	public void listByPage(int pageNum, PagingAndSortingHelper helper) {
+		helper.listEntities(pageNum, AUTHORS_PER_PAGE, repo);
 	}
 	
 	public Author save(Author author) {

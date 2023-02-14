@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.bookstore.admin.entity.Publisher;
+import com.bookstore.admin.paging.SearchRepository;
 
-public interface PublisherRepository extends PagingAndSortingRepository<Publisher, Integer> {
+public interface PublisherRepository extends SearchRepository<Publisher, Integer> {
 
 	public Long countById(Integer id);
 	
