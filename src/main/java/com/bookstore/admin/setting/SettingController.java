@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bookstore.admin.Constants;
 import com.bookstore.admin.FileUploadUtil;
 import com.bookstore.admin.entity.Currency;
 import com.bookstore.admin.entity.settting.Setting;
@@ -37,6 +38,8 @@ public class SettingController {
 		for (Setting setting : listSettings) {
 			model.addAttribute(setting.getKey(), setting.getValue());
 		}
+		
+		model.addAttribute("S3_BASE_URI", Constants.S3_BASE_URI);
 
 		return "settings/settings";
 	}

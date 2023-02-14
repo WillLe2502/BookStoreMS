@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.bookstore.admin.Constants;
 import com.bookstore.admin.entity.Author;
 import com.bookstore.admin.entity.Category;
 import com.bookstore.admin.entity.IdBasedEntity;
@@ -247,7 +248,7 @@ public class Book extends IdBasedEntity {
 	public String getCoverPath() {
 		if (this.id == null) return "/images/image-thumbnail.png";
 
-		return "/book-covers/" + this.id + "/" + this.cover;		
+		return Constants.S3_BASE_URI + "/book-covers/" + this.id + "/" + this.cover;		
 	}
 	
 	public List<BookDetail> getDetails() {

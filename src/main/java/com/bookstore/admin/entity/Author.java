@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.bookstore.admin.Constants;
+
 @Entity
 @Table(name = "authors")
 public class Author extends IdBasedEntity{
@@ -67,7 +69,7 @@ public class Author extends IdBasedEntity{
 	public String getLogoPath() {
 		if (this.id == null) return "/images/image-thumbnail.png";
 
-		return "/author-logos/" + this.id + "/" + this.logo;		
+		return Constants.S3_BASE_URI + "/author-logos/" + this.id + "/" + this.logo;		
 	}
 	 	
 }

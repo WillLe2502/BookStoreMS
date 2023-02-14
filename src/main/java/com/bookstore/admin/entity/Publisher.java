@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.bookstore.admin.Constants;
+
 @Entity
 @Table(name = "publishers")
 public class Publisher extends IdBasedEntity{
@@ -57,7 +59,7 @@ public class Publisher extends IdBasedEntity{
 	public String getLogoPath() {
 		if (this.id == null) return "/images/image-thumbnail.png";
 
-		return "/publisher-logos/" + this.id + "/" + this.logo;		
+		return Constants.S3_BASE_URI + "/publisher-logos/" + this.id + "/" + this.logo;		
 	}
 	 	
 }
