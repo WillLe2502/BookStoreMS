@@ -18,9 +18,9 @@ public class AmazonS3UtilTests {
 
 	@Test
 	public void testUploadFile() throws FileNotFoundException {
-		String folderName = "test-upload";
-		String fileName = "JAX-WS-Tomcat.zip";
-		String filePath = "E:\\Test\\" + fileName;
+		String folderName = "test-upload/one";
+		String fileName = "1.jpg";
+		String filePath = "F:\\Utilities\\" + fileName;
 
 		InputStream inputStream = new FileInputStream(filePath);
 
@@ -29,13 +29,13 @@ public class AmazonS3UtilTests {
 
 	@Test
 	public void testDeleteFile() {
-		String fileName = "test-upload/JAX-WS-Tomcat.zip";
+		String fileName = "test-upload/1.jpg";
 		AmazonS3Util.deleteFile(fileName);
 	}
 
 	@Test
 	public void testRemoveFolder() {
-		String folderName = "test-upload";
+		String folderName = "test-upload/one";
 		AmazonS3Util.removeFolder(folderName);
 	}
 }

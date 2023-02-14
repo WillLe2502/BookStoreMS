@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bookstore.admin.AmazonS3Util;
 import com.bookstore.admin.FileUploadUtil;
 import com.bookstore.admin.entity.Category;
 import com.bookstore.admin.exception.CategoryNotFoundException;
@@ -86,10 +86,10 @@ public class CategoryController {
 			category.setImage(fileName);
 
 			Category savedCategory = service.save(category);
-			String uploadDir = "../category-images/" + savedCategory.getId();
+			String uploadDir = "category-images/" + savedCategory.getId();
 
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			AmazonS3Util.removeFolder(uploadDir);
+			AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
 		} else {
 			service.save(category);
 		}
@@ -133,8 +133,8 @@ public class CategoryController {
 			RedirectAttributes redirectAttributes) {
 		try {
 			service.delete(id);
-			String categoryDir = "../category-images/" + id;
-			FileUploadUtil.removeDir(categoryDir);
+			String uploadDir = "category-images/" + id;
+			AmazonS3Util.removeFolder(uploadDir);
 
 			redirectAttributes.addFlashAttribute("message", 
 					"The category ID " + id + " has been deleted successfully");

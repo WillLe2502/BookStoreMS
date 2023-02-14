@@ -20,7 +20,7 @@ public class Author extends IdBasedEntity{
 	@Column(nullable = false, length = 128)
 	private String logo;
 	
-	@Column(length = 4096, nullable = false, name = "description")
+	@Column(length = 4096, nullable = true, name = "description")
 	private String description;
 	
 	public Author() {

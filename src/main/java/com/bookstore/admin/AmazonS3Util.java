@@ -24,25 +24,27 @@ public class AmazonS3Util {
 	static {
 		BUCKET_NAME = System.getenv("AWS_BUCKET_NAME");
 	}
-
+	
 	public static List<String> listFolder(String folderName) {
 		S3Client client = S3Client.builder().build();
 		ListObjectsRequest listRequest = ListObjectsRequest.builder()
 				.bucket(BUCKET_NAME).prefix(folderName).build();
-
+		
 		ListObjectsResponse response = client.listObjects(listRequest);
-
+		
 		List<S3Object> contents = response.contents();
-
+		
 		ListIterator<S3Object> listIterator = contents.listIterator();
-
+		
 		List<String> listKeys = new ArrayList<>();
-
+		
 		while (listIterator.hasNext()) {
 			S3Object object = listIterator.next();
 			listKeys.add(object.key());
+//			System.out.println("Key: " + object.key());
+//			System.out.println("Owner: " + object.owner());
 		}
-
+		
 		return listKeys;
 	}
 
@@ -70,7 +72,7 @@ public class AmazonS3Util {
 	public static void removeFolder(String folderName) {
 		S3Client client = S3Client.builder().build();
 		ListObjectsRequest listRequest = ListObjectsRequest.builder()
-				.bucket(BUCKET_NAME).prefix(folderName).build();
+				.bucket(BUCKET_NAME).prefix(folderName + "/").build();
 
 		ListObjectsResponse response = client.listObjects(listRequest);
 

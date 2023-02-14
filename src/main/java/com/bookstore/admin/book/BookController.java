@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bookstore.admin.FileUploadUtil;
+import com.bookstore.admin.AmazonS3Util;
 import com.bookstore.admin.author.AuthorService;
 import com.bookstore.admin.category.CategoryService;
 import com.bookstore.admin.entity.Author;
@@ -92,10 +92,10 @@ public class BookController {
 
 			Book savedBook = bookService.save(book);
 			
-			String uploadDir = "../book-covers/" + savedBook.getId();
+			String uploadDir = "book-covers/" + savedBook.getId();
 
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			AmazonS3Util.removeFolder(uploadDir);
+			AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
 
 		} else {
 			setBookDetails(detailIDs, detailNames, detailValues, book);
@@ -173,6 +173,23 @@ public class BookController {
 
 			return "redirect:/books";
 		}
+	}
+	
+	@GetMapping("/books/delete/{id}")
+	public String deleteProduct(@PathVariable(name = "id") Integer id, 
+			Model model, RedirectAttributes redirectAttributes) {
+		try {
+			bookService.delete(id);
+			String uploadDir = "book-covers/" + id;
+			
+			AmazonS3Util.removeFolder(uploadDir);
+			redirectAttributes.addFlashAttribute("message", 
+					"The book ID " + id + " has been deleted successfully");
+		} catch (BookNotFoundException ex) {
+			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+		}
+		
+		return defaultRedirectURL;
 	}
 	
 }

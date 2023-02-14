@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bookstore.admin.AmazonS3Util;
 import com.bookstore.admin.FileUploadUtil;
 import com.bookstore.admin.entity.Author;
 import com.bookstore.admin.exception.AuthorNotFoundException;
@@ -60,11 +61,13 @@ public class AuthorController {
 			author.setLogo(fileName);
 
 			Author savedAuthor = service.save(author);
-			String uploadDir = "../author-logos/" + savedAuthor.getId();
+			String uploadDir = "author-logos/" + savedAuthor.getId();
 
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+//			FileUploadUtil.cleanDir(uploadDir);
+//			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
+			AmazonS3Util.removeFolder(uploadDir);
+			AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
 		} else {
 			service.save(author);
 		}
@@ -95,8 +98,8 @@ public class AuthorController {
 			RedirectAttributes redirectAttributes) {
 		try {
 			service.delete(id);
-			String authorDir = "../publisher-logos/" + id;
-			FileUploadUtil.removeDir(authorDir);
+			String authorDir = "author-logos/" + id;
+			AmazonS3Util.removeFolder(authorDir);
 
 			redirectAttributes.addFlashAttribute("message", 
 					"The author ID " + id + " has been deleted successfully");

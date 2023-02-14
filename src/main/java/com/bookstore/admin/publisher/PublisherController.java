@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bookstore.admin.AmazonS3Util;
 import com.bookstore.admin.FileUploadUtil;
 import com.bookstore.admin.entity.Publisher;
 import com.bookstore.admin.exception.PublisherNotFoundException;
@@ -59,11 +60,10 @@ public class PublisherController {
 			publisher.setLogo(fileName);
 
 			Publisher savedPublisher = service.save(publisher);
-			String uploadDir = "../publisher-logos/" + savedPublisher.getId();
+			String uploadDir = "publisher-logos/" + savedPublisher.getId();
 
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-
+			AmazonS3Util.removeFolder(uploadDir);
+			AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
 		} else {
 			service.save(publisher);
 		}
@@ -94,8 +94,8 @@ public class PublisherController {
 			RedirectAttributes redirectAttributes) {
 		try {
 			service.delete(id);
-			String publisherDir = "../publisher-logos/" + id;
-			FileUploadUtil.removeDir(publisherDir);
+			String uploadDir = "publisher-logos/" + id;
+			AmazonS3Util.removeFolder(uploadDir);
 
 			redirectAttributes.addFlashAttribute("message", 
 					"The publisher ID " + id + " has been deleted successfully");
