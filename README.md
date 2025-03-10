@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/f13acc82-0084-4505-a692-4ceb0fe575a8)# 🚀 Le Livre Book Store Inventory Management System (IMS)
+# 🚀 Le Livre Book Store Inventory Management System (IMS)
 
 The Inventory Management System (IMS) is a web-based application designed to help businesses manage their stock levels, track product sales.</br>
 It provides a user-friendly interface for adding, updating, and monitoring inventory with real-time insights.
@@ -60,7 +60,7 @@ Salesperson Role
 
 > ![Image](https://github.com/user-attachments/assets/9e8e705e-8449-4215-a99f-56523f1273e9)
 
-**Database Schema** – Modify existing product details such as price, quantity, and descriptions.
+**Database Schema** 
 - Book Table Schema
 ~~~~sql
 CREATE TABLE books (
@@ -132,4 +132,83 @@ CREATE TABLE publishers (
 **Edit/Update Customer** – Modify existing customer details.
 
 > ![Image](https://github.com/user-attachments/assets/b5a69a07-61e7-4fb6-b96f-5bf46a660ea9)
+
+**View/Manage Order Details**
+> ![Image](https://github.com/user-attachments/assets/f7517900-6003-476a-aee7-473d9253b2ef)
+> ![Image](https://github.com/user-attachments/assets/9f505e42-ab8b-4210-886f-15788cef004e)
+> ![Image](https://github.com/user-attachments/assets/f32df5e9-4a91-486e-ad52-4ba6ec5f4571)
+
+**Database Schema** 
+- Customer Table scheme
+~~~~sql
+CREATE TABLE customers (
+    id SERIAL PRIMARY KEY,
+
+    first_name VARCHAR(45) NOT NULL,
+    last_name VARCHAR(45) NOT NULL,
+    
+    phone_number VARCHAR(15) NOT NULL UNIQUE,
+    
+    address_line_1 VARCHAR(64) NULL,
+    address_line_2 VARCHAR(64) NULL,
+    
+    city VARCHAR(45) NOT NULL,
+    state VARCHAR(45) NOT NULL,
+    postal_code VARCHAR(10) NOT NULL,
+
+    country_id INT NOT NULL,
+    
+    email VARCHAR(45) NOT NULL UNIQUE,
+    password VARCHAR(64) NOT NULL,
+
+    verification_code VARCHAR(64) NULL,
+    enabled BOOLEAN DEFAULT TRUE,
+    created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    authentication_type VARCHAR(10) NULL CHECK (authentication_type IN ('STANDARD', 'GOOGLE', 'FACEBOOK')),
+    reset_password_token VARCHAR(30) NULL,
+
+    FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE CASCADE);
+~~~~
+
+- Order Table scheme
+~~~~sql
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    
+    customer_id INT NOT NULL,
+    country VARCHAR(45) NOT NULL,
+    
+    order_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    shipping_cost DECIMAL(10,2) NOT NULL,
+    product_cost DECIMAL(10,2) NOT NULL,
+    subtotal DECIMAL(10,2) NOT NULL,
+    tax DECIMAL(10,2) NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+    
+    deliver_days INT NULL,
+    deliver_date DATE NULL,
+
+    payment_method VARCHAR(20) NOT NULL CHECK (payment_method IN ('CREDIT_CARD', 'PAYPAL', 'CASH_ON_DELIVERY')),
+    status VARCHAR(20) NOT NULL CHECK (status IN ('NEW', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED')),
+
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE);
+~~~~
+
+### 🔥 Settings Managment
+**General Setting for web page** - Config web page name, logo, currency and etc.
+> ![Image](https://github.com/user-attachments/assets/50715885-a41b-4e13-be87-2d7adf7022f7)
+
+**Mail Setting and Template**
+> ![Image](https://github.com/user-attachments/assets/8ff87683-4890-4230-8fbe-9e2eec8c296f)
+> ![Image](https://github.com/user-attachments/assets/f4895dec-2195-47a5-a302-04a3eed5a3f2)
+> ![Image](https://github.com/user-attachments/assets/4551baf2-b898-41fa-87a0-f6f1e4e3bf99)
+
+**Paypal**
+>![Image](https://github.com/user-attachments/assets/bcfd2773-00b1-4d7e-994e-0b20b8529977)
+
+## 🤝 Feedback and Contributions
+Please feel free to contribute. Each contribution helps us grow and improve.
+We appreciate your support and look forward to making our product even better with your help!
 
